@@ -4,6 +4,5 @@ Param(
     $Filepath,
     $Destpath
 )
-$Destpath = "$Destpath.ps1"
 copy-item $Filepath $Destpath
 $Destpath

@@ -4,22 +4,29 @@
 
 A [Rundeck Node Executor](http://rundeck.org/docs/plugins-user-guide/node-execution-plugins.html) plugin that allow to execute commands on local or remote nodes via native Powershell.
 
-Tested on Centos 7.3 with [Rundeck](http://rundeck.org) 2.8.2 and [Powershell 6.0b3](https://github.com/PowerShell/PowerShell)
+Tested on Centos 7.3 with [Rundeck](http://rundeck.org) 2.8.4 and [Powershell 6.0b4](https://github.com/PowerShell/PowerShell)
 
 The idea is to replace the WinRM ruby plugin with the native Linux Powershell implementation.
 
-_A note about the remote node authentication: the plugin supports both Basic and Negotiate(NTLM) types of authentication. This is because Powershell for Linux CAN authenticate via NTLM(SPNEGO) with a Windows Server, I just haven't been able to figure out how to...please see [this discussion on reddit](https://www.reddit.com/r/PowerShell/comments/6itek2/powershell_remoting_linux_windows_with_spnego/) and contribute if you can!_ 
+_A note about the remote node authentication: the plugin supports both Basic and Negotiate(NTLM) types of authentication. This is because Powershell for Linux CAN authenticate via NTLM(SPNEGO) with a Windows Server_
+In order to configure NTLM on Linux, on top of the powershell binaries you will need to install the following packages:
 
+* epel-release
+* krb5-workstation
+* krb5-devel
+* gssntlmssp (requires epel-release to be installed beforehand)
 
 ## Installation
 
 * Copy the zip file in $RDECK_BASE/libext
 * Edit your project and select "Powershell Executor" as the default node executor and "Powershell script runner" as the Default Node Copier
 * In the Default Node Executor section add the username and password (only used when invoking commands against a remote host) and select the Authentication Type.
-* Edit your rundeck resources.xml and for each node add: 
+* Edit your rundeck resources.xml and for each remote node add: 
   * node-executor="PSExe" file-copier="PSScript"
+* if you want to run Powershell against your Rundeck Server you also need to add
+  * local-node-executor="PSExe" file-copier="PSScript"
 
-## Configuration on Windows
+## Configuration on Windows (only needed for Basic Auth)
 ```
 winrm set winrm/config/client/auth @{Basic="true"}
 winrm set winrm/config/service/auth @{Basic="true"}
