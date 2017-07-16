@@ -9,6 +9,10 @@ Tested on Centos 7.3 with [Rundeck](http://rundeck.org) 2.8.4 and [Powershell 6.
 The idea is to replace the WinRM ruby plugin with the native Linux Powershell implementation.
 
 _A note about the remote node authentication: the plugin supports both Basic and Negotiate(NTLM) types of authentication. This is because Powershell for Linux CAN authenticate via NTLM(SPNEGO) with a Windows Server_
+
+
+## Setup Powershell for Linux NTLM Authentication
+
 In order to configure NTLM on Linux, on top of the powershell binaries you will need to install the following packages:
 
 * epel-release
