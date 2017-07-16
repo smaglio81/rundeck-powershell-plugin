@@ -8,7 +8,7 @@ Tested on Centos 7.3 with [Rundeck](http://rundeck.org) 2.8.4 and [Powershell 6.
 
 The idea is to replace the WinRM ruby plugin with the native Linux Powershell implementation.
 
-_A note about the remote node authentication: the plugin supports both Basic and Negotiate(NTLM) types of authentication. This is because Powershell for Linux CAN authenticate via NTLM(SPNEGO) with a Windows Server_
+_A note about the remote node authentication: the plugin supports both Basic and Negotiate(NTLM) types of authentication (tested on Windows Server 2012R2/2016). For security reasons, please use the "Negotiate" authentication type (encrypted) instead of basic (unencrypted)_
 
 
 ## Setup Powershell for Linux NTLM Authentication
@@ -43,7 +43,7 @@ This plugin can handle both remote commands and inline scripts.
 
 If the script/command is run agains the local Rundeck host it will just run the command or the script in the local powershell environment
 
-if the script/command is run against a remote node (tested on Windows 2016 with Basic Authentication) it will run an invoke-command.
+if the script/command is run against a remote node  it will run an invoke-command.
 
 The script copier doesn't actually copy anything, it just handles the creation and deletion of the temp script files which get then either executed locally or added to invoke-command with the -filepath parameter
 
