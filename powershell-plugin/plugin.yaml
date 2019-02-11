@@ -35,8 +35,8 @@ providers:
         title: Auth type
         description: "Authentication type"
         type: Select
-        values: "negotiate, ssl, kerberos, basic"
-        default: "basic"
+        values: "negotiate, ssl, kerberos, basic, default, credssp"
+        default: "default"
         required: true
         scope: Instance
         renderingOptions:
